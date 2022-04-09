@@ -8,7 +8,8 @@ import sys
 import random
 from socketserver import StreamRequestHandler, ThreadingTCPServer
 
-logging.basicConfig(level=logging.DEBUG)
+Log_Format = "%(levelname)s %(asctime)s - %(message)s"
+logging.basicConfig(filename = "/root/log.log",filemode = "w", format = Log_Format, level=logging.DEBUG)
 SOCKS_VERSION = 5
 ips = []
 
