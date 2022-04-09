@@ -56,7 +56,7 @@ class SocksProxy(StreamRequestHandler):
                 remote = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 ip = random.choice(ips)
                 logging.info('Choice ip %s' % ip)
-                remote.bind(ip)
+                remote.bind((ip,0))
                 remote.connect((address, port))
                 bind_address = remote.getsockname()
                 logging.info('Connected to %s %s' % (address, port))
@@ -113,8 +113,7 @@ class SocksProxy(StreamRequestHandler):
                     break
 
 if __name__ == '__main__':
-    print(sys.argv)
-    port = sys.argv[1]
+    port = int(sys.argv[1])
     ips = sys.argv[3].split(",")
     # 使用socketserver库的多线程服务器ThreadingTCPServer启动代理
     with ThreadingTCPServer(('0.0.0.0', port), SocksProxy) as server:
